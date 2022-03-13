@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Zen Quote</title>
+
+  </head>
+
+  <body>
+    <button id= "startTheProcess">START!</button>
+    <section id = "zenQuoteSection"></section>
+    <script>
+
+      //references
+      let triggerButton = document.getElementById("startTheProcess")
+
+      let zenQuoteURL = "https://zenquotes.io/api/random/"
+      let zenQuoteSection = document.getElementById('zenQuoteSection')
+      let zenQuote_api_key = "b1f0d4a5fd077f25256a389e97893140eab28613"
+
+      let triggerHandler = function(){
+        fetchZenQuote()
+      }
+
+      //step 5a - Function
+
+
+      let fetchZenQuote = function(){
+
+        let queryURL = zenQuoteURL + zenQuote_api_key
+
+        console.info(queryURL)
+
+        fetch(queryURL)
+
+            .then((response) => {
+              console.info(response)
+              return response.json()
+            })
+
+            .then((data) => {
+              console.log (data)
+              zenQuoteDataHandler(data)
+            })
+
+            .catch((serverError) => {
+              console.error(serverError)
+            })
+      }
+
+      //step 5a - Handler
+      let zenQuoteDataHandler = function(zenQuoteData){
+
+        while(zenQuoteSection.firstChild){
+        zenQuoteSection.removeChild(zenQuoteSection.firstChild)
+      }
+        let zenQuote = zenQuoteData[0].q
+        let zenQuoteContainer = document.createElement('h3')
+        zenQuoteContainer.innerText = zenQuote
+        zenQuoteSection.appendChild(zenQuoteContainer)
+
+        }
+
+
+
+      //step 5a - fetcher
+
+
+
+
+      //step 6 - Function
+
+
+
+      //step 6 - Handler
+
+
+      //events
+      triggerButton.addEventListener('click', triggerHandler)
+
+    </script>
+
+  </body>
+</html>

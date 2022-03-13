@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Data fetching machine</title>
+
+  </head>
+
+  <body>
+    <button id="startTheProcess">START!</button>
+    <section id = "baconSection"></section>
+    <script>
+
+      //references
+      let triggerButton = document.getElementById("startTheProcess")
+
+      let baconURL = " https://baconmockup.com/"
+      let baconSection = document.getElementById('baconSection')
+      let firstRandomNumber = Math.floor(Math.random() * 1001)
+      let secondRandomNumber = Math.floor(Math.random() * 1001)
+
+      let triggerHandler = function(){
+        fetchBacon()
+      }
+
+      //step 5a - Function
+      let fetchBacon = function(){
+      let queryURL = baconURL + firstRandomNumber + "/" + secondRandomNumber
+
+          console.info(queryURL)
+
+          fetch(queryURL)
+
+            .then((response) => {
+              console.info(response)
+              return response.json()
+            })
+
+            .then((data) => {
+              console.log (data)
+              catDataHandler(data)
+            })
+
+            .catch((serverError) => {
+              console.error(serverError)
+            })
+      }
+
+      //step 5a - Handler
+      let baconDataHandler = function(baconData){
+
+        while(baconSection.firstChild){
+        baconSection.removeChild(baconSection.firstChild)
+      }
+        let baconPic = baconData.url
+        let baconContainer = document.createElement('img')
+        baconContainer.src = baconPic
+        baconSection.appendChild(baconContainer)
+
+        }
+
+
+
+      //step 5a - fetcher
+
+
+
+
+      //step 6 - Function
+
+
+
+      //step 6 - Handler
+
+
+      //events
+      triggerButton.addEventListener('click', triggerHandler)
+
+    </script>
+
+  </body>
+</html>

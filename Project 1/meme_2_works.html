@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Meme</title>
+  <style>
+    img{
+      max-width: 300px
+    }
+    </style>
+</head>
+
+<body>
+  <button id="startTheProcess">START!</button>
+  <section id="memeSection"></section>
+  <script>
+    //references
+    let triggerButton = document.getElementById("startTheProcess")
+    let memeURL = "https://api.imgflip.com/get_memes"
+    let memeSection = document.getElementById('memeSection')
+
+    let triggerHandler = function() {
+      fetchMeme()
+    }
+
+    //step 5a - Function
+    let fetchMeme = function() {
+      let queryURL = memeURL
+      console.info(queryURL)
+
+      fetch(queryURL)
+
+        .then((response) =>{
+          console.info(response)
+          return response.json()
+        })
+        .then((data) =>{
+          console.info(data)
+          memeDataHandler (data)
+        })
+
+        .catch((serverError) => {
+          console.error(serverError)
+        })
+    }
+
+    //step 5a - Handler
+    let memeDataHandler = function(memeData) {
+
+      while (memeSection.firstChild) {
+        memeSection.removeChild(memeSection.firstChild)
+      }
+
+      let fetchID = Math.floor(Math.random() * 100)
+      console.info(fetchID)
+
+      let memePicData = memeData.data.memes
+      let memePic = memePicData[fetchID].url
+      let memeContainer = document.createElement('img')
+      memeContainer.src = memePic
+      memeSection.appendChild(memeContainer)
+
+    }
+
+
+
+    //step 5a - fetcher
+
+
+
+
+    //step 6 - Function
+
+
+
+    //step 6 - Handler
+
+
+    //events
+    triggerButton.addEventListener('click', triggerHandler)
+  </script>
+
+</body>
+
+</html>

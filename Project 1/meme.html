@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Meme</title>
+
+</head>
+
+<body>
+  <button id="startTheProcess">START!</button>
+  <section id="memeSection"></section>
+  <script>
+    //references
+    let triggerButton = document.getElementById("startTheProcess")
+    let memeURL = "http://alpha-meme-maker.herokuapp.com/memes/"
+    let memeSection = document.getElementById('memeSection')
+    let fetchID = Math.floor(Math.random() * 101)
+
+    let triggerHandler = function() {
+      fetchMeme()
+    }
+
+    //step 5a - Function
+    let fetchMeme = function() {
+      let queryURL = memeURL + fetchID
+      console.info(queryURL)
+
+      fetch(queryURL)
+
+        .then((response) =>{
+          console.info(response)
+          return response.json()
+        })
+        .then((data) =>{
+          console.info(data)
+        })
+
+        .catch((serverError) => {
+          console.error(serverError)
+        })
+    }
+
+    //step 5a - Handler
+    let memeDataHandler = function(memeData) {
+
+      while (memeSection.firstChild) {
+        memeSection.removeChild(memeSection.firstChild)
+      }
+      let memePic = memeData.data.image
+      let memeContainer = document.createElement('img')
+      memeContainer.src = memePic
+      memeSection.appendChild(memeContainer)
+
+      let topText = memeData.data.topText
+      let topTextContainer = document.createElement('h3')
+      topTextContainer.innerText = topText
+      memeSection.appendChild(topTextContainer)
+
+      let bottomText = memeData.data.bottomText
+      let bottomTextContainer = document.createElement('h3')
+      bottomTextContainer.innerText = bottomText
+      memeSection.appendChild(bottomTextContainer)
+
+    }
+
+
+
+    //step 5a - fetcher
+
+
+
+
+    //step 6 - Function
+
+
+
+    //step 6 - Handler
+
+
+    //events
+    triggerButton.addEventListener('click', triggerHandler)
+  </script>
+
+</body>
+
+</html>

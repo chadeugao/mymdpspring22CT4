@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="styles.css">
+  <title>Data fetching machine</title>
+
+</head>
+
+<body>
+
+  <button id="startTheProcess">START!</button>
+
+  <section id="catSection"></section>
+  <script>
+    //references
+    let triggerButton = document.getElementById("startTheProcess")
+
+    let catURL = "https://api.thecatapi.com/v1/images/search"
+    let api_key = "api_key=3c38a403-dd70-4a95-9998-b3fdb8833e36"
+    let catSection = document.getElementById('catSection')
+    //let classifier = ml5.imageClassifier('MobileNet', modelLoaded);
+
+    let triggerHandler = function() {
+      fetchCat()
+    }
+
+    //step 5a - Function
+    let fetchCat = function() {
+      let queryURL = catURL + "?" + api_key
+
+      fetch(queryURL)
+
+        .then((response) => {
+          console.log("-- Image from TheCatAPI.com")
+          return response.json()
+        })
+
+        .then((data) => {
+          console.log(data)
+          catDataHandler(data)
+        })
+
+        .catch((serverError) => {
+          console.error(serverError)
+        })
+    }
+
+    //step 5a - Handler
+    let catDataHandler = function(catData) {
+
+      while (catSection.firstChild) {
+        catSection.removeChild(catSection.firstChild)
+      }
+      let catPic = catData[0].url
+      let catContainer = document.createElement('img')
+      catContainer.src = catPic
+      catSection.appendChild(catContainer)
+
+      function download(catPic){
+      const fileName = catPic.split('/').pop();
+       console.info(fileName)
+      var el = document.createElement("a");
+      el.setAttribute("href", catPic);
+      el.setAttribute("download", fileName);
+      document.body.appendChild(el);
+      }
+
+    }
+
+
+    //download img
+
+
+
+    //step 5a - fetcher
+
+
+
+
+    //step 6 - Function
+
+
+
+    //step 6 - Handler
+
+
+    //events
+    triggerButton.addEventListener('click', triggerHandler)
+
+
+  </script>
+
+</body>
+
+</html>
